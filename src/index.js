@@ -38,8 +38,7 @@ SheridansSpecialSkill.prototype = Object.create(AlexaSkill.prototype);
 SheridansSpecialSkill.prototype.constructor = SheridansSpecialSkill;
 
 SheridansSpecialSkill.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    console.log("SheridansSpecialSkill onSessionStarted requestId: " + sessionStartedRequest.requestId
-        + ", sessionId: " + session.sessionId);
+    console.log("SheridansSpecialSkill onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId);
 
     // any session init logic would go here
 };
@@ -50,8 +49,7 @@ SheridansSpecialSkill.prototype.eventHandlers.onLaunch = function (launchRequest
 };
 
 SheridansSpecialSkill.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId
-        + ", sessionId: " + session.sessionId);
+    console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
 
     // any session cleanup logic would go here
 };
@@ -100,7 +98,7 @@ function getSheridansSpecial(handleCallback) {
 
     var url = 'http://www.sheridanfruit.com/Daily-Deli-Menu.html';
     var priceSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(1) > td:nth-child(1) > p:nth-child(3) > span > span';
-    var specialSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(2) > td:nth-child(1) > div > span';
+    var specialSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(2) > td:nth-child(1) > div >:first-child';
 
     request(url, function(error, response, html){
         if (!error) {
