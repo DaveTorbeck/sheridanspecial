@@ -97,14 +97,17 @@ function getSheridansSpecial(handleCallback) {
     console.log('Attempting to scrape special');
 
     var url = 'http://www.sheridanfruit.com/Daily-Deli-Menu.html';
-    var priceSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(1) > td:nth-child(1) > p:nth-child(3) > span > span';
-    var specialSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(2) > td:nth-child(1) > div >:first-child';
+    var priceSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(1) > td:nth-child(1)';
+    var specialSelector = '#center-main > div > div > table:nth-child(2) > tbody > tr:nth-child(2) > td:nth-child(1) >:first-child >:first-child';
 
     request(url, function(error, response, html){
         if (!error) {
             var $ = cheerio.load(html);
-            var price = $(priceSelector).text();
+            var price = grabSpecialPrice($(priceSelector).children(), $);
+
+            console.log('PRICE IS ', price);
             var special = $(specialSelector).text();
+
 
             console.log('Found special, firing callback.')
 
@@ -113,6 +116,21 @@ function getSheridansSpecial(handleCallback) {
             console.log('Error occurred: ' + error);
         }
     });
+}
+
+function grabSpecialPrice(priceChildren, $) {
+    var result;
+
+    priceChildren.each(function(){
+        var childText = $(this).text().trim();
+        if (/\$[a-zA-Z0-9\s]*/g.test(childText)) {
+            console.log('Found price for special.')
+            result = childText;
+        }
+    });
+
+    console.log('Setting special price.')
+    return result;
 }
 
 // Create the handler that responds to the Alexa Request.
